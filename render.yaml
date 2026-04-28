@@ -1,0 +1,33 @@
+databases:
+  - name: stayhaven-db
+    databaseName: stayhaven
+    user: stayhaven_user
+    plan: free
+
+services:
+  - type: web
+    name: stayhaven-backend
+    env: docker
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: stayhaven-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: stayhaven-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: stayhaven-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: stayhaven-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: stayhaven-db
+          property: password
